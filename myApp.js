@@ -29,7 +29,7 @@ const createAndSavePerson = (done) => {
     if (err) {
       return done(err);
     }
-    return done(null, data);
+    done(null, data);
   })
 
   done(null /*, data*/);

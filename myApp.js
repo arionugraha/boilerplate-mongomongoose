@@ -48,7 +48,6 @@ const findPeopleByName = (personName, done) => {
     if (err) {
       return done(err);
     }
-    console.log(data);
     done(null, data);
   })
 };

@@ -102,18 +102,29 @@ const findPersonById = (personId, done) => {
   })
 }
 
-findPersonById("64ee2a79e3c95904a442c588", (err, data) => {
+const findEditThenSave = (personId, done) => {
+  const newFood = "hamburger";
+  findPersonById(personId, (err, person) => {
+    if (err) {
+      return done(err);
+    }
+    person.favoriteFoods.push(newFood);
+    person.save((err, data) => {
+      if (err) {
+        return done(err);
+      }
+      console.log(person.favoriteFoods);
+      done(null, data);
+    })
+  });
+};
+
+findEditThenSave("64ee2a79e3c95904a442c588", (err, data) => {
   if (err) {
     return console.log(err);
   }
   console.log(data);
 });
-
-const findEditThenSave = (personId, done) => {
-  const foodToAdd = "hamburger";
-
-  done(null /*, data*/);
-};
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;

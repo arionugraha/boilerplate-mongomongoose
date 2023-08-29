@@ -42,18 +42,15 @@ const createManyPeople = (arrayOfPeople, done) => {
   })
 };
 
-createManyPeople([
-  {name: "Ario Dhanu", age: 21, favoriteFoods: ["Nasi Goreng", "Bakso"]},
-  {name: "The Narrator", age: 30, favoriteFoods: ["Steak"]},
-], (err, data) => {
-  if (err) {
-    return console.log(err);
-  }
-  console.log(data);
-});
-
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  personName = "Ario Dhanu";  
+  Person.find({name: personName}, (err, data) => {
+    if (err) {
+      return done(err);
+    }
+    console.log(data);
+    done(null, data);
+  })
 };
 
 const findOneByFood = (food, done) => {

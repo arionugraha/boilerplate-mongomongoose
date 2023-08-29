@@ -42,15 +42,15 @@ const createManyPeople = (arrayOfPeople, done) => {
   })
 };
 
-createManyPeople([
-  {name: "Ario Dhanu", age: 21, favoriteFoods: ["Nasi Goreng", "Bakso"]},
-  {name: "Robert", age: 30, favoriteFoods: ["Steak"]},
-], (err, data) => {
-  if (err) {
-    return console.log(err);
-  }
-  console.log(data);
-});
+// createManyPeople([
+//   {name: "Ario Dhanu", age: 21, favoriteFoods: ["Nasi Goreng", "Bakso"]},
+//   {name: "Robert", age: 30, favoriteFoods: ["Steak"]},
+// ], (err, data) => {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   console.log(data);
+// });
 
 const findPeopleByName = (personName, done) => {
   Person.find({name: personName}, (err, data) => {
@@ -84,9 +84,16 @@ findOneByFood("Steak", (err, data) => {
   console.log(data);
 })
 
-const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+const findPersonById = async (personId) => {
+  try {
+    const person = await Person.findById(personId);
+    return person;
+  } catch (err) {
+    console.log(err);
+  }
 };
+
+findPersonById("64ee2a79e3c95904a442c588");
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";

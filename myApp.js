@@ -84,16 +84,30 @@ findOneByFood("Steak", (err, data) => {
   console.log(data);
 })
 
-const findPersonById = async (personId) => {
-  try {
-    const person = await Person.findById(personId);
-    return person;
-  } catch (err) {
-    console.log(err);
-  }
-};
+// const findPersonById = async (personId) => {
+//   try {
+//     const person = await Person.findById(personId);
+//     return person;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
-findPersonById("64ee2a79e3c95904a442c588");
+const findPersonById = (personId, done) => {
+  Person.findById(personId, (err, data) => {
+    if (err) {
+      return done(err);
+    }
+    done(null, data);
+  })
+}
+
+findPersonById("64ee2a79e3c95904a442c588", (err, data) => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log(data);
+});
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";

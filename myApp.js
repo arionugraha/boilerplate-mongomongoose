@@ -118,7 +118,7 @@ findEditThenSave("64ee2a79e3c95904a442c588", (err, data) => {
 });
 
 const findAndUpdate = (personName, done) => {
-  const ageToSet = 10;
+  const ageToSet = 20;
   Person.findOneAndUpdate({name: personName}, {$set: {age: ageToSet}}, {new: true, useFindAndModify: false}, (err, data) => {
     if (err) {
       return done(err);

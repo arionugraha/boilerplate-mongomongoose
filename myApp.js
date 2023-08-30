@@ -110,12 +110,12 @@ const findEditThenSave = (personId, done) => {
   });
 };
 
-findEditThenSave("64ee2a79e3c95904a442c588", (err, data) => {
-  if (err) {
-    return console.log(err);
-  }
-  console.log(data);
-});
+// findEditThenSave("64ee2a79e3c95904a442c588", (err, data) => {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   console.log(data);
+// });
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
@@ -127,16 +127,29 @@ const findAndUpdate = (personName, done) => {
   });
 };
 
-findAndUpdate("Poldo", (err, data) => {
+// findAndUpdate("Poldo", (err, data) => {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   console.log(data);
+// });
+
+const removeById = (personId, done) => {
+  Person.findByIdAndRemove({_id: personId}, {useFindAndModify: false}, (err, data) => {
+    if (err) {
+      return done(err);
+    }
+    console.log(data);
+    done(null, data);
+  });
+};
+
+removeById("64ee2c27d1373800146053e6", (err, data) => {
   if (err) {
     return console.log(err);
   }
   console.log(data);
-});
-
-const removeById = (personId, done) => {
-  done(null /*, data*/);
-};
+})
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";

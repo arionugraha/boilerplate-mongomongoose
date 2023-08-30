@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const { query } = require("express");
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -45,6 +46,7 @@ const createManyPeople = (arrayOfPeople, done) => {
 // createManyPeople([
 //   {name: "Ario Dhanu", age: 21, favoriteFoods: ["Nasi Goreng", "Bakso"]},
 //   {name: "Robert", age: 30, favoriteFoods: ["Steak"]},
+//   {name: "Poldo", age: 25, favoriteFoods: ["Pizza", "Steak"]}
 // ], (err, data) => {
 //   if (err) {
 //     return console.log(err);
@@ -161,18 +163,29 @@ const removeManyPeople = (done) => {
   });
 };
 
-removeManyPeople((err, data) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log(data);
-});
+// removeManyPeople((err, data) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log(data);
+// });
 
 const queryChain = (done) => {
-  const foodToSearch = "burrito";
-
-  done(null /*, data*/);
+  const foodToSearch = "Steak";
+  Person.find({favoriteFoods: foodToSearch}).sort({name: -1}).limit(2).select({age: 0}).exec((err, data) => {
+    if (err) {
+      return done(err);
+    }
+    done(null, data);
+  })
 };
+
+queryChain((err, data) => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log(data);
+})
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !

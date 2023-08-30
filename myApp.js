@@ -61,12 +61,12 @@ const findPeopleByName = (personName, done) => {
   })
 };
 
-findPeopleByName("Ario Dhanu", (err, data) => {
-  if (err) {
-    return console.log(err);
-  }
-  console.log(data);
-});
+// findPeopleByName("Ario Dhanu", (err, data) => {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   console.log(data);
+// });
 
 const findOneByFood = (food, done) => {
   Person.findOne({favoriteFoods: food}, (err, data) => {
@@ -77,21 +77,12 @@ const findOneByFood = (food, done) => {
   });
 };
 
-findOneByFood("Steak", (err, data) => {
-  if (err) {
-    return console.log(err);
-  }
-  console.log(data);
-})
-
-// const findPersonById = async (personId) => {
-//   try {
-//     const person = await Person.findById(personId);
-//     return person;
-//   } catch (err) {
-//     console.log(err);
+// findOneByFood("Steak", (err, data) => {
+//   if (err) {
+//     return console.log(err);
 //   }
-// };
+//   console.log(data);
+// })
 
 const findPersonById = (personId, done) => {
   Person.findById(personId, (err, data) => {
@@ -127,10 +118,21 @@ findEditThenSave("64ee2a79e3c95904a442c588", (err, data) => {
 });
 
 const findAndUpdate = (personName, done) => {
-  const ageToSet = 20;
-
-  done(null /*, data*/);
+  const ageToSet = 10;
+  Person.findOneAndUpdate({name: personName}, {$set: {age: ageToSet}}, {new: true, useFindAndModify: false}, (err, data) => {
+    if (err) {
+      return done(err);
+    }
+    done(null, data);
+  });
 };
+
+findAndUpdate("Poldo", (err, data) => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log(data);
+});
 
 const removeById = (personId, done) => {
   done(null /*, data*/);

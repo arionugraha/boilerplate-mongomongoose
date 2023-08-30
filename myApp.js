@@ -144,18 +144,29 @@ const removeById = (personId, done) => {
   });
 };
 
-removeById("64ee2c27d1373800146053e6", (err, data) => {
-  if (err) {
-    return console.log(err);
-  }
-  console.log(data);
-})
+// removeById("64ee2c27d1373800146053e6", (err, data) => {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   console.log(data);
+// })
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+  Person.remove({name: nameToRemove}, (err, data) => {
+    if (err) {
+      return done(err)
+    }
+    done(null, data);
+  });
 };
+
+removeManyPeople((err, data) => {
+  if (err) {
+    console.log(err);
+  }
+  console.log(data);
+});
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
